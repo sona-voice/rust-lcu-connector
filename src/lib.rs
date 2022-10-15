@@ -19,6 +19,7 @@ use std::env::consts::OS;
 use std::fs;
 use std::path::PathBuf;
 use std::process::{Command, Stdio};
+use std::os::windows::process::CommandExt;
 
 /// Make sure the League of Legends Client is opened before running any of the methods.
 pub struct LeagueClientConnector {}
@@ -115,6 +116,7 @@ impl LeagueClientConnector {
                 "GET",
                 "commandline",
             ])
+            .creation_flags(0x08000000)
             .output()
             .context(GetRawPath)?;
 
